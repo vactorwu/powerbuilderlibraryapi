@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBLParser", "PBLParser\PBLParser.csproj", "{C870A4FA-577C-4A68-8384-A861AC742914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBLExtract", "PBLExtract\PBLExtract.csproj", "{C3CC1820-206E-456D-989E-0A0828C91C54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C870A4FA-577C-4A68-8384-A861AC742914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C870A4FA-577C-4A68-8384-A861AC742914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C870A4FA-577C-4A68-8384-A861AC742914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C870A4FA-577C-4A68-8384-A861AC742914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CC1820-206E-456D-989E-0A0828C91C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CC1820-206E-456D-989E-0A0828C91C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CC1820-206E-456D-989E-0A0828C91C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CC1820-206E-456D-989E-0A0828C91C54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

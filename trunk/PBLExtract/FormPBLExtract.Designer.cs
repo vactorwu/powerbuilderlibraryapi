@@ -35,6 +35,9 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonExtract = new System.Windows.Forms.Button();
+            this.textBoxFolderPath = new System.Windows.Forms.TextBox();
+            this.buttonPickFolder = new System.Windows.Forms.Button();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // buttonPickPBL
@@ -64,12 +67,12 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOutput.BackColor = System.Drawing.Color.Black;
             this.textBoxOutput.ForeColor = System.Drawing.Color.PaleGoldenrod;
-            this.textBoxOutput.Location = new System.Drawing.Point(12, 40);
+            this.textBoxOutput.Location = new System.Drawing.Point(12, 66);
             this.textBoxOutput.MaxLength = 999999;
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxOutput.Size = new System.Drawing.Size(563, 404);
+            this.textBoxOutput.Size = new System.Drawing.Size(563, 378);
             this.textBoxOutput.TabIndex = 2;
             this.textBoxOutput.WordWrap = false;
             // 
@@ -107,11 +110,33 @@
             this.buttonExtract.UseVisualStyleBackColor = false;
             this.buttonExtract.Click += new System.EventHandler(this.buttonExtract_Click);
             // 
+            // textBoxFolderPath
+            // 
+            this.textBoxFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFolderPath.Location = new System.Drawing.Point(12, 40);
+            this.textBoxFolderPath.Name = "textBoxFolderPath";
+            this.textBoxFolderPath.Size = new System.Drawing.Size(482, 20);
+            this.textBoxFolderPath.TabIndex = 6;
+            // 
+            // buttonPickFolder
+            // 
+            this.buttonPickFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPickFolder.Location = new System.Drawing.Point(500, 38);
+            this.buttonPickFolder.Name = "buttonPickFolder";
+            this.buttonPickFolder.Size = new System.Drawing.Size(75, 23);
+            this.buttonPickFolder.TabIndex = 5;
+            this.buttonPickFolder.Text = "Pick Folder";
+            this.buttonPickFolder.UseVisualStyleBackColor = true;
+            this.buttonPickFolder.Click += new System.EventHandler(this.buttonPickFolder_Click);
+            // 
             // FormPBLExtract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 485);
+            this.Controls.Add(this.textBoxFolderPath);
+            this.Controls.Add(this.buttonPickFolder);
             this.Controls.Add(this.buttonExtract);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.textBoxOutput);
@@ -133,6 +158,9 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonExtract;
+        private System.Windows.Forms.TextBox textBoxFolderPath;
+        private System.Windows.Forms.Button buttonPickFolder;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
 

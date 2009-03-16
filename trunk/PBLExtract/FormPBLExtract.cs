@@ -25,65 +25,24 @@ namespace PBLExtract
             }
         }
 
+        private void buttonPickFolder_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.textBoxFolderPath.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
+
         private void buttonExtract_Click(object sender, EventArgs e)
         {
-            try
+            if (textBoxPBLFile.Text.Trim().Length > 0)
             {
-                if (this.textBoxPBLFile.Text.Trim() != string.Empty)
-                {
-                    FileInfo fi = new FileInfo(this.textBoxPBLFile.Text);
-                    if (fi.Exists)
-                    {
-                        string newDirName = fi.Directory.FullName + "\\" + fi.Name.Substring(0, (fi.Name.Length - fi.Extension.Length));
-                        
-                        DirectoryInfo saveDir;
-                        if (Directory.Exists(newDirName))
-                            saveDir = new DirectoryInfo(newDirName);
-                        else
-                            saveDir = Directory.CreateDirectory(newDirName);
-
-                        PBLFile pblFile = PBLParser.Parse(fi.FullName);
-
-                        WriteLine("File: " + fi.Name);
-                        WriteLine("Description: " + pblFile.Header.Description);
-                        WriteLine("PBL Format Version: " + pblFile.Header.Version);
-                        WriteLine("Is Unicode? " + pblFile.IsUnicode);
-
-                        foreach (PBLNodeEntry entry in pblFile.Node.Entries.Values)
-                        {
-                            WriteLine("------------------------------------");
-                            WriteLine("Object: " + entry.ObjectName);
-                            WriteLine("Comment: " + entry.Comment);
-
-                            string fname;
-                            if (entry.ObjectName.IndexOf(".sr") != -1)
-                            {
-                                Encoding enc = pblFile.IsUnicode ? Encoding.Unicode : Encoding.ASCII;
-
-                                fname = saveDir.FullName + "\\" + entry.ObjectName + ".txt";
-                                
-                                File.WriteAllText(
-                                    fname,
-                                    enc.GetString(entry.RawData), enc);
-                            }
-                            else
-                            {
-                                fname = saveDir.FullName + "\\" + entry.ObjectName + ".bin";
-                                
-                                File.WriteAllBytes(
-                                    fname,
-                                    entry.RawData);
-                            }
-
-                            WriteLine("Saving object to file: " + fname);
-                        }
-                    }
-                }
+                    ExtractPBL(new FileInfo(this.textBoxPBLFile.Text));
             }
-            catch (Exception ex)
+            else if (textBoxFolderPath.Text.Trim().Length > 0)
             {
-                WriteLine(ex.Message);
-                WriteLine(ex.StackTrace);
+                DirectoryInfo di = new DirectoryInfo(textBoxFolderPath.Text);
+                ExtractPBL(di);
             }
         }
 
@@ -105,6 +64,76 @@ namespace PBLExtract
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        public void ExtractPBL(DirectoryInfo parent)
+        {
+            foreach (FileInfo fi in parent.GetFiles("*.pbl"))
+            {
+                ExtractPBL(fi);
+            }
+            foreach (DirectoryInfo childFolder in parent.GetDirectories())
+            {
+                ExtractPBL(childFolder);
+            }
+        }
+
+        public void ExtractPBL(FileInfo fi)
+        {
+            try
+            {
+                if (fi.Exists)
+                {
+                    string newDirName = fi.Directory.FullName + "\\" + fi.Name.Substring(0, (fi.Name.Length - fi.Extension.Length));
+
+                    DirectoryInfo saveDir;
+                    if (Directory.Exists(newDirName))
+                        saveDir = new DirectoryInfo(newDirName);
+                    else
+                        saveDir = Directory.CreateDirectory(newDirName);
+
+                    PBLFile pblFile = PBLParser.Parse(fi.FullName);
+
+                    WriteLine("File: " + fi.Name);
+                    WriteLine("Description: " + pblFile.Header.Description);
+                    WriteLine("PBL Format Version: " + pblFile.Header.Version);
+                    WriteLine("Is Unicode? " + pblFile.IsUnicode);
+
+                    foreach (PBLNodeEntry entry in pblFile.Node.Entries.Values)
+                    {
+                        WriteLine("------------------------------------");
+                        WriteLine("Object: " + entry.ObjectName);
+                        WriteLine("Comment: " + entry.Comment);
+
+                        string fname;
+                        if (entry.ObjectName.IndexOf(".sr") != -1)
+                        {
+                            Encoding enc = pblFile.IsUnicode ? Encoding.Unicode : Encoding.ASCII;
+
+                            fname = saveDir.FullName + "\\" + entry.ObjectName + ".txt";
+
+                            File.WriteAllText(
+                                fname,
+                                enc.GetString(entry.RawData), enc);
+                        }
+                        else
+                        {
+                            fname = saveDir.FullName + "\\" + entry.ObjectName + ".bin";
+
+                            File.WriteAllBytes(
+                                fname,
+                                entry.RawData);
+                        }
+
+                        WriteLine("Saving object to file: " + fname);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLine(ex.Message);
+                WriteLine(ex.StackTrace);
+            }
         }
     }
 }

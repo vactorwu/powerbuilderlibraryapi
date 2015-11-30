@@ -1,0 +1,3 @@
+A PowerBuilder Library API for .Net. Open and explore PowerBuilder Library files. Along with it an application that extracts object files. (source, forms, etc) This is very useful if you want to do global searches through PBL source.
+
+![http://powerbuilderlibraryapi.googlecode.com/svn/trunk/Screenshots/pblparser_screen01.png](http://powerbuilderlibraryapi.googlecode.com/svn/trunk/Screenshots/pblparser_screen01.png)
